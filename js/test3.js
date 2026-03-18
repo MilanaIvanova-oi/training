@@ -212,7 +212,7 @@ const past = [[0],[[1]],[[[3]]]];
 
 //5 
 const chist = [1,2,3,4,5];*/
-console.log('test4')
+/*console.log('test4')
 
 async function fetchData() {
 	const url = 'http://localhost/myserver/index.php'
@@ -247,4 +247,38 @@ async function fetchData() {
 
 document.addEventListener('DOMContentLoaded', function () {
 	fetchData()
+})*/
+
+async function fetchData(fam, name, ote, pochta, phone, login, pass) {
+	let url = `http://localhost/myserver/?fam=${fam}&name=${name}&ote=${ote}&pochta=${pochta}&phone=${phone}&login=${login}&pass=${pass}`
+	let response = await fetch(url, {
+		method: 'GET',
+		headers: { Accept: 'application/json' },
+	})
+
+}
+function get_data_form() {
+	const btn_reg = document.querySelector('#btn_reg')
+	btn_reg.addEventListener('click', event => {
+		// валидация элементов: английские, русские буквы (большие и маленькие) и цифры
+		const exp = /[a-zA-Zа-яА-Я0-9]/
+		const fam = document.querySelector('#fam').value
+		const name = document.querySelector('#name').value
+		const ote = document.querySelector('#ote').value
+		const pochta = document.querySelector('#pochta').value
+		const phone = document.querySelector('#phone').value
+		const login = document.querySelector('#login').value
+		const pass = document.querySelector('#pass').value
+		if (exp.test(login) && exp.test(pass)) {
+			console.log('Истино')
+			fetchData(fam, name, ote, pochta, phone, login, pass)
+		} else {
+			console.log('Ложно')
+		}
+		event.preventDefault()
+	})
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	get_data_form()
 })
