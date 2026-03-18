@@ -213,28 +213,38 @@ const past = [[0],[[1]],[[[3]]]];
 //5 
 const chist = [1,2,3,4,5];*/
 console.log('test4')
+
 async function fetchData() {
-	// prepar
-	const param1 = '#param1'
-	const param2 = '#param2'
-	let url = `http://localhost/myserver/?param1=${param1.value}&param2=${param2.value}`
-	let response = await fetch(url, {
-		method: 'GET',
-		headers: { Accept: 'application/json' },
-	})
-	let param = await response.json()
+	const url = 'http://localhost/myserver/index.php'
+	
+	try {
+		const response = await fetch(url, {
+			method: 'GET',
+			headers: { Accept: 'application/json' },
+		})
+		
+		if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`)
+		}
+		
+		const data = await response.json()
+		console.log(data)
+		
 		// добавление элементов в цикле
-	for (let key in param) {
-		if (param.hasOwnProperty(key)) {
-			const par = document.querySelector('.block')
+		const par = document.querySelector('.block')
+		
+		data.forEach(student => {
 			const newDiv = document.createElement('div')
 			newDiv.className = 'block_inner'
-			newDiv.innerHTML = param[key]
+			newDiv.textContent = student.first_name
 			par.appendChild(newDiv)
-		}
+		})
+		
+	} catch (error) {
+		console.error('Ошибка получения данных:', error)
 	}
-
 }
+
 document.addEventListener('DOMContentLoaded', function () {
 	fetchData()
 })
