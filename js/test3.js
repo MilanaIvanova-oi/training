@@ -194,7 +194,7 @@
 
 
 
-
+/*
 //1 НУжно сложить массивы чтобы было [11,13,15,17,19]
 const a = [1,2,3,4,5];
 const b = [10,11,12,13,14];
@@ -211,4 +211,27 @@ const ul = [1, , 2,8,7,3,4, "+",5];
 const past = [[0],[[1]],[[[3]]]];
 
 //5 
-const chist = [1,2,3,4,5];
+const chist = [1,2,3,4,5];*/
+console.log('test4')
+async function fetchData() {
+	// prepar
+	const param1 = '#param1'
+	const param2 = '#param2'
+	let url = `http://localhost/myserver/?param1=${param1.value}&param2=${param2.value}`
+	let response = await fetch(url, {
+		method: 'GET',
+		headers: { Accept: 'application/json' },
+	})
+	let param = await response.json()
+	console.log(param)
+	const txt1 = document.querySelector('.block_inner1')
+	txt1.innerHTML = param.txt1
+	const txt2 = document.querySelector('.block_inner2')
+	txt2.innerHTML = param.txt2
+	const txt3 = document.querySelector('.block_inner3')
+	txt3.innerHTML = param.txt3
+}
+const mbtn = document.querySelector('#btn')
+document.addEventListener('DOMContentLoaded', function () {
+	fetchData()
+})
