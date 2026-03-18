@@ -223,15 +223,18 @@ async function fetchData() {
 		headers: { Accept: 'application/json' },
 	})
 	let param = await response.json()
-	console.log(param)
-	const txt1 = document.querySelector('.block_inner1')
-	txt1.innerHTML = param.txt1
-	const txt2 = document.querySelector('.block_inner2')
-	txt2.innerHTML = param.txt2
-	const txt3 = document.querySelector('.block_inner3')
-	txt3.innerHTML = param.txt3
+		// добавление элементов в цикле
+	for (let key in param) {
+		if (param.hasOwnProperty(key)) {
+			const par = document.querySelector('.block')
+			const newDiv = document.createElement('div')
+			newDiv.className = 'block_inner'
+			newDiv.innerHTML = param[key]
+			par.appendChild(newDiv)
+		}
+	}
+
 }
-const mbtn = document.querySelector('#btn')
 document.addEventListener('DOMContentLoaded', function () {
 	fetchData()
 })
